@@ -62,19 +62,15 @@ O ZIP deve conter os arquivos da pasta `extension/` diretamente na raiz. O
 Exemplo no PowerShell, executado na raiz do projeto:
 
 ```powershell
+$stage = Join-Path $env:TEMP 'fulltube-package'
+if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+New-Item -ItemType Directory -Path (Join-Path $stage 'icons') -Force | Out-Null
+Copy-Item .\extension\manifest.json,.\extension\service-worker.js,.\extension\player-mode.js,.\extension\error.html,.\extension\error.js -Destination $stage
+Copy-Item .\extension\icons\icon16.png,.\extension\icons\icon48.png,.\extension\icons\icon128.png -Destination (Join-Path $stage 'icons')
 $out = Join-Path $PWD 'fulltube-chrome-2.0.0.zip'
 if (Test-Path $out) { Remove-Item $out }
-$files = @(
-  '.\extension\manifest.json',
-  '.\extension\service-worker.js',
-  '.\extension\player-mode.js',
-  '.\extension\error.html',
-  '.\extension\error.js',
-  '.\extension\icons\icon16.png',
-  '.\extension\icons\icon48.png',
-  '.\extension\icons\icon128.png'
-)
-Compress-Archive -Path $files -DestinationPath $out
+Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $out
+Remove-Item $stage -Recurse -Force
 ```
 
 O arquivo de teste `test-extension.js` fica fora do pacote de produção.
