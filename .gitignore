@@ -1,0 +1,4 @@
+node_modules/
+*.zip
+spike-electron/node_modules/
+_loop/

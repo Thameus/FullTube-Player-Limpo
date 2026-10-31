@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "FullTube — Player Limpo",
+  "version": "2.0.0",
+  "description": "Abra vídeos em uma janela limpa ou use o modo teatro do YouTube na mesma aba, sem baixar ou extrair vídeos.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Abrir player limpo · YouTube: Alt+T modo teatro"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "permissions": ["activeTab", "scripting", "storage", "windows"],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://www.twitch.tv/*",
+        "https://vimeo.com/*"
+      ],
+      "js": ["player-mode.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com;"
+  }
+}
