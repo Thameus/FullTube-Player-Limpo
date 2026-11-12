@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="base.css"><script src="base.js"></script><script>
+const items=[t({pt:'Sem baixar vídeos',en:'No video downloads'}),t({pt:'Sem cookies',en:'No cookies'}),t({pt:'Sem rastreio ou telemetria',en:'No tracking or telemetry'}),t({pt:'Não bloqueia anúncios',en:"Doesn't block ads"}),t({pt:'Código aberto',en:'Open source'})];
+mount(1280,800,
+ caption(t({pt:'Sem baixar vídeos. Sem <b>rastreio.</b>',en:'No downloads. No <b>tracking.</b>'}),
+  t({pt:'O FullTube só abre o player oficial do site, nada mais.',en:"FullTube only opens the site's official player, nothing more."}))
+ +place(`<div style="width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(169,112,255,.35),transparent 70%);display:flex;align-items:center;justify-content:center">${logo(230)}</div>`,70,290)
+ +place(items.map(s=>`<div style="display:flex;align-items:center;gap:26px;height:92px;padding:0 34px;border-radius:20px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:40px;font-weight:700">${checkIcon}<span>${s}</span></div>`).join(''),470,215,'width:750px;display:flex;flex-direction:column;gap:16px'));
+</script>

@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="base.css"><script src="base.js"></script><script>
+let code='';const cs=['#a970ff','#ff7a90','#7ad7ff','#ffd77a','#8be28b'];
+const lens=[0,2,2,4,4,2,4,6,4,2,0,0,2,4,4,2,0];
+lens.forEach((ind,i)=>{let bars='';let n=2+(i*7)%3;for(let j=0;j<n;j++)bars+=`<s style="display:block;height:12px;border-radius:6px;width:${40+((i*37+j*53)%80)}px;background:${cs[(i+j*2)%5]};opacity:${j%2?.55:.9}"></s>`;
+ code+=`<div style="display:flex;gap:10px;align-items:center;height:26px;padding-left:${ind*14}px"><span style="width:26px;color:#5d5873;font-size:14px;text-align:right">${i+1}</span>${bars}</div>`;});
+const editor=`<div class="win" style="width:640px;height:520px;background:#1b1828"><div class="popbar" style="background:#2a2638"><div class="dots" style="margin:0"><i></i><i></i><i></i></div><div class="tab" style="margin-left:14px;height:26px;width:150px"><i></i><s style="width:70px"></s></div></div>
+<div style="display:flex;height:484px"><div style="width:120px;background:#171421;padding:18px 14px;display:flex;flex-direction:column;gap:14px">${[80,60,90,50,70,64].map(w=>`<s style="display:block;height:10px;border-radius:5px;background:#3a3550;width:${w}px"></s>`).join('')}</div><div style="flex:1;padding:16px 10px;display:flex;flex-direction:column;gap:3px">${code}</div></div></div>`;
+mount(1280,800,
+ caption(t({pt:'Várias janelas, lado a lado com seu <b>trabalho.</b>',en:'Multiple windows, right next to your <b>work.</b>'}),
+  t({pt:'Tempo, volume e posição restaurados. Cada janela é independente.',en:'Time, volume and position restored. Every window is independent.'}),50)
+ +place(editor,50,230)
+ +place(scaled(popup(960,600),960,600,.5),770,200)
+ +place(scaled(popup(960,600),960,600,.5),700,450));
+</script>

@@ -33,17 +33,17 @@ async function injectPopupMode(tabId) {
 
 async function detect(tab) {
   if (!tab?.id || !tab.url || /^(chrome|edge|about|devtools|chrome-extension|view-source|file):/i.test(tab.url)) {
-    throw new Error('Esta aba não permite que a extensão acesse o player. Abra uma página comum e tente novamente.');
+    throw new Error(chrome.i18n.getMessage('errTabNotAllowed'));
   }
   await injectDetector(tab.id);
   try { return await chrome.tabs.sendMessage(tab.id, { type: 'detect-player' }); }
-  catch (_) { throw new Error('Não foi possível acessar esta página. Se houver um iframe protegido, abra o vídeo na própria página.'); }
+  catch (_) { throw new Error(chrome.i18n.getMessage('errPageInaccessible')); }
 }
 
 chrome.action.onClicked.addListener(async tab => {
   try {
     const result = await detect(tab);
-    if (!result?.ok || !result.player) throw new Error(result?.error || 'Nenhum player HTML5 visível foi encontrado nesta página.');
+    if (!result?.ok || !result.player) throw new Error(result?.error || chrome.i18n.getMessage('errNoPlayer'));
     const player = result.player;
     const host = new URL(tab.url).hostname;
     const saved = await chrome.storage.local.get(boundsKey(host));
@@ -55,15 +55,27 @@ chrome.action.onClicked.addListener(async tab => {
       ...(Number.isFinite(bounds.top) ? { top: bounds.top } : {})
     });
     const popupTabId = created?.tabs?.[0]?.id;
-    if (!popupTabId) throw new Error('A janela do player não pôde ser preparada.');
+    if (!popupTabId) throw new Error(chrome.i18n.getMessage('errPopupNotPrepared'));
     await chrome.storage.session?.set({ [popupKey(popupTabId)]: {
       host, sourceTabId: tab.id, popupTabId, windowId: created.id,
       index: player.index, ready: false
     } });
     await injectPopupMode(popupTabId);
   } catch (error) {
-    openMessageWindow(error instanceof Error ? error.message : 'Não foi possível abrir o player nesta página.');
+    openMessageWindow(error instanceof Error ? error.message : chrome.i18n.getMessage('errOpenFailed'));
   }
+});
+
+chrome.commands.onCommand.addListener(async command => {
+  if (command !== 'toggle-theater') return;
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    if (tab?.id) await chrome.tabs.sendMessage(tab.id, { type: 'toggle-theater' });
+  } catch (_) { /* no content script on this tab: theater mode is YouTube-only */ }
+});
+
+chrome.runtime.onInstalled.addListener(details => {
+  if (details.reason === 'install') chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {

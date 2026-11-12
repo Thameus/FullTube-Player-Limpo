@@ -1,15 +1,24 @@
 {
   "manifest_version": 3,
-  "name": "FullTube — Player Limpo",
-  "version": "2.0.0",
-  "description": "Abra vídeos em uma janela limpa ou use o modo teatro do YouTube na mesma aba, sem baixar ou extrair vídeos.",
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
+  "version": "2.1.0",
+  "description": "__MSG_extDescription__",
+  "default_locale": "pt_BR",
+  "homepage_url": "https://fulltube.thameus.com.br",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "Abrir player limpo · YouTube: Alt+T modo teatro"
+    "default_title": "__MSG_actionTitle__"
+  },
+  "commands": {
+    "toggle-theater": {
+      "suggested_key": { "default": "Alt+T" },
+      "description": "__MSG_commandTheaterDescription__"
+    }
   },
   "background": {
     "service_worker": "service-worker.js"

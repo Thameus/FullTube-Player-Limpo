@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Política de privacidade — FullTube</title>
+  <link rel="alternate" hreflang="en" href="privacy.en.html">
   <style>
     :root { color-scheme: dark; }
     body { max-width: 760px; margin: 0 auto; padding: 40px 22px; background: #120d1f; color: #f1ecfa; font: 16px/1.6 system-ui, sans-serif; }
@@ -11,27 +12,35 @@
     a { color: #ff5474; }
     li { margin: 6px 0; }
     .updated { color: #b9aac9; }
+    .lang { text-align: right; }
   </style>
 </head>
 <body>
+  <p class="lang"><strong>Português</strong> | <a href="privacy.en.html" hreflang="en" lang="en">English</a></p>
   <h1>Política de privacidade — FullTube</h1>
-  <p class="updated"><strong>Última atualização:</strong> 31/10/2026</p>
+  <p class="updated"><strong>Última atualização:</strong> 12/11/2026</p>
   <h2>Finalidade</h2>
-  <p>O FullTube é uma extensão para Chrome e Edge que detecta um player HTML5 visível e abre a mesma página em uma janela limpa. No YouTube, também oferece um modo teatro na própria aba.</p>
+  <p>O FullTube — Janela Limpa e Modo Teatro é uma extensão para Chrome e Edge que detecta um player HTML5 visível e abre a mesma página em uma janela limpa. No YouTube, também oferece um modo teatro na própria aba.</p>
   <h2>Dados acessados</h2>
-  <p>A extensão pode acessar a página ativa, o elemento de vídeo HTML5 e o estado técnico da reprodução, como tempo atual, volume, mudo e reprodução.</p>
-  <p>As dimensões e a posição da janela popup são armazenadas localmente. Dados temporários usados para relacionar a aba de origem à janela popup ficam em <code>storage.session</code> e são removidos quando deixam de ser necessários.</p>
+  <p>A extensão pode acessar a página ativa, o elemento de vídeo HTML5 e o estado técnico da reprodução, como tempo atual, volume, mudo e reprodução. Esse acesso acontece no seu navegador e serve apenas para localizar o vídeo e aplicar o layout e o estado de reprodução.</p>
+  <p>A extensão pede permissão de acesso a sites <code>http</code> e <code>https</code> porque não é possível saber de antemão em qual site você vai clicar no ícone. Essa permissão não é usada para ler, coletar ou enviar o conteúdo das páginas.</p>
+  <p>As dimensões e a posição da janela são armazenadas localmente, por site. Dados temporários usados para relacionar a aba de origem à janela ficam em <code>storage.session</code> e são removidos quando deixam de ser necessários.</p>
+  <h2>Página de boas-vindas e idioma</h2>
+  <p>Na primeira instalação, a extensão abre uma vez uma página de boas-vindas. Ela é uma página local da própria extensão, não carrega conteúdo de servidores externos e não envia dados. O idioma da interface (português ou inglês) segue o idioma do navegador; essa escolha é feita localmente e nenhuma informação é enviada.</p>
   <h2>O que não fazemos</h2>
   <ul>
     <li>Não lemos, copiamos ou transmitimos cookies.</li>
     <li>Não acessamos senhas, tokens ou credenciais.</li>
     <li>Não extraímos URLs de mídia nem baixamos streams.</li>
     <li>Não usamos captura de aba ou captura de stream.</li>
+    <li>Não bloqueamos anúncios.</li>
     <li>Não enviamos dados para servidores próprios ou terceiros.</li>
     <li>Não usamos analytics, publicidade ou rastreamento.</li>
   </ul>
   <h2>Compartilhamento e retenção</h2>
-  <p>Nenhum dado é compartilhado com terceiros. As preferências ficam no armazenamento local do navegador. O estado temporário da sessão é descartado quando deixa de ser necessário.</p>
+  <p>Nenhum dado é compartilhado com terceiros. As preferências de janela ficam no armazenamento local do navegador e podem ser removidas desinstalando a extensão. O estado temporário da sessão é descartado quando a sessão do navegador termina ou quando a janela é fechada.</p>
+  <h2>Alterações</h2>
+  <p>Se esta política mudar, a data acima será atualizada e o histórico ficará disponível no repositório do projeto.</p>
   <h2>Contato</h2>
   <p>Para dúvidas sobre esta política, abra uma solicitação no <a href="https://github.com/Thameus/FullTube-Player-Limpo/issues">GitHub Issues</a>.</p>
 </body>

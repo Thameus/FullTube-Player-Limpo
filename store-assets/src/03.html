@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="base.css"><script src="base.js"></script><script>
+const body=`<div style="width:1160px;height:388px;position:relative">${player(18)}<div class="abs" style="right:22px;top:18px">${chip(t({pt:'Modo teatro',en:'Theater mode'}),'rgba(20,17,31,.75)')}</div></div>`;
+const lab=(s)=>`<span style="font-size:28px;font-weight:600;color:#d3cae9">${s}</span>`;
+mount(1280,800,
+ caption(t({pt:'Modo teatro no YouTube: <b>Alt+T</b>',en:'YouTube theater mode: <b>Alt+T</b>'}),
+  t({pt:'Menus, comentários e recomendações somem. O player ocupa a aba inteira.',en:'Menus, comments and recommendations disappear. The player fills the tab.'}))
+ +place(browser(1160,470,body),60,196)
+ +place(`<div style="display:flex;align-items:center;gap:20px;width:1160px;justify-content:center"><span class="key">Alt</span><span style="font-size:36px;font-weight:700;color:#a970ff">+</span><span class="key">T</span>${lab(t({pt:'ativa o modo teatro',en:'turns it on'}))}<span style="width:60px"></span><span class="key">Esc</span>${lab(t({pt:'restaura',en:'restores'}))}</div>`,60,
+ 690));
+</script>

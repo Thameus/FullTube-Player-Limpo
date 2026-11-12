@@ -1,0 +1,12 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="base.css"><script src="base.js"></script><script>
+const ext=`<span style="position:relative;display:block;width:26px;height:26px;border-radius:7px;background:#14111f;box-shadow:0 0 0 3px #a970ff,0 0 24px 6px rgba(169,112,255,.8)">${logo(26)}</span>`;
+mount(1280,800,
+ caption(t({pt:'Um clique abre o player numa janela <b>limpa.</b>',en:'One click pops the player into a <b>clean window.</b>'}),
+  t({pt:'Clique no ícone do FullTube: o vídeo abre numa janela 960×600, só com o player.',en:'Click the FullTube icon: the video opens in a 960×600 window with only the player.'}),50)
+ +place(scaled(browser(1000,682,page(),ext),1000,682,.7),50,200)
+ +place(`<div style="width:56px;height:56px;border-radius:50%;border:4px solid #ff0033"></div>`,703,213)
+ +place(`<svg width="300" height="150" viewBox="0 0 300 150" style="overflow:visible"><path d="M10 10 C 10 90, 90 130, 175 128" fill="none" stroke="#a970ff" stroke-width="8" stroke-linecap="round" stroke-dasharray="1 17"/><path d="M158 106l28 22-28 22" fill="none" stroke="#a970ff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>`,722,284,'')
+ +place(`<svg width="38" height="38" viewBox="0 0 24 24" style="filter:drop-shadow(0 4px 6px rgba(0,0,0,.6))"><path d="M5 2l14 10-6 1 3.5 7-3 1.5L10 14l-5 4z" fill="#fff" stroke="#14111f" stroke-width="1.4" stroke-linejoin="round"/></svg>`,732,246)
+ +place(chip('960×600','#ff0033'),740,376)
+ +place(scaled(popup(960,600),960,600,.52),740,426));
+</script>

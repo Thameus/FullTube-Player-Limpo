@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FullTube</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <img src="icons/icon128.png" width="72" height="72" alt="">
+      <h1 data-i18n="welcomeHeading"></h1>
+      <p class="lead" data-i18n="welcomeLead"></p>
+    </header>
+
+    <section aria-labelledby="how">
+      <h2 id="how" data-i18n="welcomeHowTitle"></h2>
+      <ol class="steps">
+        <li>
+          <h3 data-i18n="welcomeStep1Title"></h3>
+          <p data-i18n="welcomeStep1Text"></p>
+        </li>
+        <li>
+          <h3 data-i18n="welcomeStep2Title"></h3>
+          <p data-i18n="welcomeStep2Text"></p>
+        </li>
+        <li>
+          <h3 data-i18n="welcomeStep3Title"></h3>
+          <ul class="keys">
+            <li data-i18n="welcomeKeySpace"></li>
+            <li data-i18n="welcomeKeyF"></li>
+            <li data-i18n="welcomeKeyM"></li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="access">
+      <h2 id="access" data-i18n="welcomeAccessTitle"></h2>
+      <p data-i18n="welcomeAccessText"></p>
+    </section>
+
+    <section aria-labelledby="shortcuts">
+      <h2 id="shortcuts" data-i18n="welcomeShortcutsTitle"></h2>
+      <p data-i18n="welcomeShortcutsText"></p>
+      <ul class="copy-list">
+        <li>
+          <span class="label" data-i18n="welcomeShortcutsChrome"></span>
+          <code>chrome://extensions/shortcuts</code>
+          <button type="button" class="copy" data-copy="chrome://extensions/shortcuts" data-i18n="welcomeCopy"></button>
+        </li>
+        <li>
+          <span class="label" data-i18n="welcomeShortcutsEdge"></span>
+          <code>edge://extensions/shortcuts</code>
+          <button type="button" class="copy" data-copy="edge://extensions/shortcuts" data-i18n="welcomeCopy"></button>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="links">
+      <h2 id="links" data-i18n="welcomeLinksTitle"></h2>
+      <ul class="links">
+        <li><a href="https://fulltube.thameus.com.br" target="_blank" rel="noopener noreferrer" data-i18n="welcomeLinkSite"></a></li>
+        <li><a href="https://github.com/Thameus/FullTube-Player-Limpo" target="_blank" rel="noopener noreferrer" data-i18n="welcomeLinkRepo"></a></li>
+        <li><a href="https://github.com/Thameus/FullTube-Player-Limpo/issues" target="_blank" rel="noopener noreferrer" data-i18n="welcomeLinkIssues"></a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p data-i18n="welcomeDisclaimer"></p>
+    </footer>
+  </main>
+  <script src="welcome.js"></script>
+</body>
+</html>

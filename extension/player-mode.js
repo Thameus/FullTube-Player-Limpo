@@ -8,6 +8,7 @@
   const POPUP_PARAM = 'multiTubePopup';
   const isPopup = new URL(location.href).searchParams.get(POPUP_PARAM) === '1';
   let activeIndex = -1;
+  let toggleTheater = null;
 
   function videos() {
     return Array.from(document.querySelectorAll('video')).filter(video => {
@@ -104,13 +105,18 @@
   function messageHandler(message, _sender, sendResponse) {
     if (message?.type === 'detect-player') {
       const result = candidate();
-      sendResponse(result ? { ok: true, player: result } : { ok: false, error: 'Nenhum player HTML5 visível foi encontrado nesta página.' });
+      sendResponse(result ? { ok: true, player: result } : { ok: false, error: chrome.i18n.getMessage('errNoPlayer') });
       return true;
     }
     if (message?.type === 'pause-source') {
       const selected = videos()[Number.isInteger(message.index) ? message.index : activeIndex];
       if (selected) selected.pause();
       sendResponse({ ok: Boolean(selected) });
+      return true;
+    }
+    if (message?.type === 'toggle-theater') {
+      if (toggleTheater) toggleTheater();
+      sendResponse({ ok: Boolean(toggleTheater) });
       return true;
     }
     return false;
@@ -152,7 +158,7 @@
   async function installPopupMode() {
     const selected = await waitForVideo();
     if (!selected) {
-      notify('Não foi possível detectar um player HTML5 nesta janela. A página foi mantida aberta.');
+      notify(chrome.i18n.getMessage('popupNoPlayer'));
       return;
     }
     activeIndex = selected.index;
@@ -186,7 +192,7 @@
         await selected.video.play();
       } catch (_) {
         if (site === 'twitch' || site === 'generic') selected.video.controls = true;
-        notify('O navegador bloqueou o autoplay. Use os controles nativos para iniciar.');
+        notify(chrome.i18n.getMessage('popupAutoplayBlocked'));
       }
     }
     if (site === 'twitch' || site === 'generic') selected.video.controls = true;
@@ -269,6 +275,15 @@
         });
       }
     };
+    // Both the manifest command and the in-page Alt+T handler can fire for the
+    // same key press; a second toggle within 300 ms is ignored.
+    let lastToggle = 0;
+    toggleTheater = () => {
+      const now = Date.now();
+      if (now - lastToggle < 300) return;
+      lastToggle = now;
+      setActive(!active);
+    };
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && active) {
         event.preventDefault();
@@ -276,7 +291,7 @@
         setActive(false);
       } else if (event.altKey && event.key.toLowerCase() === 't') {
         event.preventDefault();
-        setActive(!active);
+        toggleTheater();
       }
     }, true);
 

@@ -1,0 +1,122 @@
+{
+  "extName": {
+    "message": "FullTube — Janela Limpa e Modo Teatro"
+  },
+  "extShortName": {
+    "message": "FullTube"
+  },
+  "extDescription": {
+    "message": "Assista só ao vídeo: abra o player numa janela limpa ou use o modo teatro do YouTube (Alt+T). Sem baixar vídeos, sem rastreio."
+  },
+  "actionTitle": {
+    "message": "Abrir player limpo · YouTube: Alt+T modo teatro"
+  },
+  "commandTheaterDescription": {
+    "message": "Alternar modo teatro no YouTube"
+  },
+  "errTabNotAllowed": {
+    "message": "Esta aba não permite que a extensão acesse o player. Abra uma página comum e tente novamente."
+  },
+  "errPageInaccessible": {
+    "message": "Não foi possível acessar esta página. Se houver um iframe protegido, abra o vídeo na própria página."
+  },
+  "errNoPlayer": {
+    "message": "Nenhum player HTML5 visível foi encontrado nesta página."
+  },
+  "errPopupNotPrepared": {
+    "message": "A janela do player não pôde ser preparada."
+  },
+  "errOpenFailed": {
+    "message": "Não foi possível abrir o player nesta página."
+  },
+  "errorPageTitle": {
+    "message": "FullTube"
+  },
+  "errorDefaultMessage": {
+    "message": "Não foi possível abrir o player."
+  },
+  "errorCloseButton": {
+    "message": "Fechar"
+  },
+  "popupNoPlayer": {
+    "message": "Não foi possível detectar um player HTML5 nesta janela. A página foi mantida aberta."
+  },
+  "popupAutoplayBlocked": {
+    "message": "O navegador bloqueou o autoplay. Use os controles nativos para iniciar."
+  },
+  "welcomePageTitle": {
+    "message": "Bem-vindo ao FullTube"
+  },
+  "welcomeHeading": {
+    "message": "Bem-vindo ao FullTube"
+  },
+  "welcomeLead": {
+    "message": "Assista só ao vídeo, sem o resto da página."
+  },
+  "welcomeHowTitle": {
+    "message": "Como usar"
+  },
+  "welcomeStep1Title": {
+    "message": "Clique no ícone"
+  },
+  "welcomeStep1Text": {
+    "message": "Numa página com vídeo, clique no ícone do FullTube. O player abre numa janela limpa de 960×600."
+  },
+  "welcomeStep2Title": {
+    "message": "Modo teatro no YouTube"
+  },
+  "welcomeStep2Text": {
+    "message": "No YouTube, pressione Alt+T para o modo teatro na própria aba. Esc para sair."
+  },
+  "welcomeStep3Title": {
+    "message": "Atalhos na janela limpa"
+  },
+  "welcomeKeySpace": {
+    "message": "Espaço: reproduzir / pausar"
+  },
+  "welcomeKeyF": {
+    "message": "F: tela cheia"
+  },
+  "welcomeKeyM": {
+    "message": "M: silenciar / reativar o som"
+  },
+  "welcomeAccessTitle": {
+    "message": "Por que pede acesso a todos os sites?"
+  },
+  "welcomeAccessText": {
+    "message": "Para preparar a janela limpa em qualquer site que você escolher. Nada é coletado nem enviado: o FullTube não usa cookies, não extrai streams e não baixa vídeos."
+  },
+  "welcomeShortcutsTitle": {
+    "message": "Mudar os atalhos"
+  },
+  "welcomeShortcutsText": {
+    "message": "Abra esta página no navegador (copie e cole na barra de endereços) para remapear o Alt+T:"
+  },
+  "welcomeShortcutsChrome": {
+    "message": "Chrome"
+  },
+  "welcomeShortcutsEdge": {
+    "message": "Edge"
+  },
+  "welcomeCopy": {
+    "message": "Copiar"
+  },
+  "welcomeCopied": {
+    "message": "Copiado!"
+  },
+  "welcomeLinksTitle": {
+    "message": "Links"
+  },
+  "welcomeLinkSite": {
+    "message": "Site"
+  },
+  "welcomeLinkRepo": {
+    "message": "Código no GitHub"
+  },
+  "welcomeLinkIssues": {
+    "message": "Relatar um problema"
+  },
+  "welcomeDisclaimer": {
+    "message": "Não afiliado ao YouTube nem ao Google"
+  }
+}
