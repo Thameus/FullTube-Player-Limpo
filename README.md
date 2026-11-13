@@ -15,6 +15,12 @@
 ![Versão 2.1.0](https://img.shields.io/badge/vers%C3%A3o-2.1.0-blue)
 
 <p align="center">
+  <img src="store-assets/demo.gif" alt="Demonstração: um clique abre o player numa janela limpa; Alt+T ativa o modo teatro" width="800">
+</p>
+
+Vídeo completo (25 s): [português](store-assets/video/fulltube-demo-pt.mp4) · [English](store-assets/video/fulltube-demo-en.mp4)
+
+<p align="center">
   <img src="store-assets/screenshots/pt-BR/01-janela-limpa.png" alt="Vídeo em uma janela limpa, sem o resto da página" width="32%">
   <img src="store-assets/screenshots/pt-BR/02-um-clique.png" alt="Um clique no ícone abre o player" width="32%">
   <img src="store-assets/screenshots/pt-BR/03-modo-teatro.png" alt="Modo teatro do YouTube na mesma aba" width="32%">

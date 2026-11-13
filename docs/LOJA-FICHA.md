@@ -37,7 +37,9 @@ Imagens promocionais:
 - Marquee (1400×560): `store-assets/promo/marquee-1400x560.png`
 - Imagem de destaque do repositório (não é enviada às lojas): `store-assets/hero.png`
 
-As imagens são ilustrações geradas para o projeto, sem capturas nem marcas de terceiros.
+Vídeo de demonstração (25 s, sem áudio): `store-assets/video/fulltube-demo-pt.mp4` e `store-assets/video/fulltube-demo-en.mp4`. As lojas aceitam vídeo apenas por link do YouTube: envie o MP4 para o YouTube e cole o link no campo de vídeo da ficha de cada idioma.
+
+As imagens e o vídeo são ilustrações geradas para o projeto, sem capturas nem marcas de terceiros.
 
 ---
 
