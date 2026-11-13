@@ -1,0 +1,200 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>FullTube demo</title>
+<link rel="stylesheet" href="../base.css">
+<script src="../base.js"></script>
+<style>
+html,body{width:1280px;height:720px;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden}
+.L{position:absolute;left:0;top:0;width:1280px;height:720px}
+.dcap{position:absolute;left:0;right:0;bottom:34px;display:flex;justify-content:center;z-index:50;pointer-events:none}
+.dcap span{display:block;max-width:1180px;text-align:center;padding:16px 36px;border-radius:22px;background:rgba(20,17,31,.9);
+ box-shadow:0 0 0 2px rgba(169,112,255,.65),0 14px 34px rgba(0,0,0,.5);font-size:37px;line-height:1.2;font-weight:700;letter-spacing:-.2px}
+.dcap b{color:#c9a4ff}
+.win{transform-origin:0 0}
+.klab{font-size:27px;font-weight:600;color:#d3cae9;margin-top:22px;text-align:center}
+.bird{position:absolute;width:26px;height:12px;z-index:1}
+</style></head><body>
+<div id="stage"></div>
+<script>
+const TOTAL=25;
+const EZ='cubic-bezier(.45,0,.15,1)',POP='cubic-bezier(.2,1.2,.35,1)',OUT='cubic-bezier(.15,.7,.2,1)';
+const $=s=>document.querySelector(s);
+const stage=$('#stage');
+const mk=(cls,html,st='',par=stage)=>{const d=document.createElement('div');if(cls)d.className=cls;d.style.cssText=st;d.innerHTML=html||'';par.appendChild(d);return d;};
+// one animation per (element, property) over the whole timeline
+function K(el,prop,pts){
+  pts=pts.map(p=>p.slice());
+  if(pts[0][0]>0)pts.unshift([0,pts[0][1]]);
+  if(pts[pts.length-1][0]<TOTAL)pts.push([TOTAL,pts[pts.length-1][1]]);
+  const kf=pts.map(([t,v,e])=>({offset:t/TOTAL,[prop]:v,easing:e||EZ}));
+  return el.animate(kf,{duration:TOTAL*1000,fill:'both',easing:'linear'});
+}
+const fade=(el,a,b,c,d)=>K(el,'opacity',[[0,0],[a,0],[b,1],[c,1],[d,0]]);
+const fmt=s=>{s=Math.floor(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+
+// ---------- video players that "play" ----------
+const vids=[];
+function makePlayer(fs,base,start,total=728){
+  const wrap=document.createElement('div');wrap.style.cssText='position:absolute;inset:0';wrap.innerHTML=player(fs);
+  const root=wrap.firstElementChild;
+  const birds=`<svg class="bird" viewBox="0 0 26 12" style="left:0;top:18%"><path d="M1 8Q7 -1 13 7Q19 -1 25 8" fill="none" stroke="#2b1b4e" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="bird" viewBox="0 0 26 12" style="left:0;top:25%;transform:scale(.7)"><path d="M1 8Q7 -1 13 7Q19 -1 25 8" fill="none" stroke="#2b1b4e" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+  root.querySelector('.scene').insertAdjacentHTML('afterend',birds);
+  vids.push({root,base,start,total,
+    b:root.querySelector('.pr b'),u:root.querySelector('.pr u'),tx:root.querySelector('.bt span:not(.sp)'),
+    sun:root.querySelector('.sun'),m1:root.querySelector('.m1'),m2:root.querySelector('.m2'),sc:root.querySelector('.scene'),
+    birds:[...root.querySelectorAll('.bird')]});
+  return wrap;
+}
+function render(ms){
+  const t=ms/1000;
+  for(const v of vids){
+    const s=Math.max(0,t-v.start),pos=v.base+s,pct=Math.min(100,pos/v.total*100);
+    v.b.style.width=pct+'%';v.u.style.left=pct+'%';
+    v.tx.textContent=fmt(pos)+' / '+fmt(v.total);
+    v.sun.style.transform=`translate(-50%,-50%) scale(${1+.05*Math.sin(s*1.7)})`;
+    v.m1.style.transform=`translateX(${-Math.sin(s*.45)*10}px)`;
+    v.m2.style.transform=`translateX(${Math.sin(s*.5)*14}px)`;
+    v.sc.style.filter=`hue-rotate(${Math.sin(s*.35)*9}deg)`;
+    v.birds.forEach((bd,i)=>{const w=v.root.clientWidth||600;const x=((s*(46+i*14)+i*170)%(w+120))-60;bd.style.left=x+'px';bd.style.transform=`scale(${i?.7:1},${.7+.3*Math.sin(s*7+i*2)})`;});
+  }
+}
+
+// ---------- page mock (video page) ----------
+const buildPage=()=>{
+  const cols=['#bdb8d2,#a7a1c0','#c9b8d8,#b09cc4','#b8c6d8,#9cb0c4','#d2c3b8,#c4aa9c','#bdb8d2,#a7a1c0','#c9b8d8,#b09cc4'];
+  let rec='';for(let i=0;i<6;i++)rec+=`<div class="row" style="left:662px;top:${76+i*100}px"><div class="thumb" style="background:linear-gradient(135deg,${cols[i]})"></div><div class="lines"><s style="width:150px"></s><s style="width:110px"></s><s style="width:70px"></s></div></div>`;
+  let com='';for(let i=0;i<4;i++)com+=`<div class="row" style="left:20px;top:${500+i*66}px"><div class="g" style="width:40px;height:40px;border-radius:50%"></div><div class="lines" style="padding-top:2px"><s style="width:${90+i*20}px"></s><s style="width:${400-i*50}px"></s></div></div>`;
+  return `<div class="pg" style="width:1000px;height:600px"><div class="hd"><div class="g lg"></div><div class="g sr"></div><div class="g av"></div></div>
+  <div class="abs grp-rec" style="left:0;top:0">${rec}</div>
+  <div class="abs grp-low" style="left:0;top:0"><div class="abs g" style="left:20px;top:440px;width:360px;height:16px"></div><div class="abs g" style="left:20px;top:466px;width:220px;height:11px"></div>${com}</div>
+  <div class="abs pw" style="left:20px;top:76px;width:620px;height:349px;border-radius:10px;overflow:hidden;z-index:3"></div></div>`;
+};
+const extIcon=id=>`<span id="${id}" style="position:relative;display:block;width:26px;height:26px;border-radius:7px;background:#14111f;box-shadow:0 0 0 2px #a970ff">${logo(26)}</span>`;
+const popWin=()=>{const w=document.createElement('div');w.className='win';w.style.cssText='position:absolute;left:0;top:0;width:960px;height:600px;transform-origin:0 0;z-index:20';
+  w.innerHTML=`<div class="popbar"><div class="t"><i></i><s></s></div><div class="c"><i></i><i></i><i></i></div></div><div class="pbody" style="width:960px;height:564px;position:relative"></div>`;
+  w.querySelector('.pbody').appendChild(makePlayer(22,0,0,728));return w;};
+
+// ================= SCENE 1: title =================
+const s1=mk('L','');
+const logoEl=mk('',logo(170),'position:absolute;left:555px;top:150px;filter:drop-shadow(0 0 40px rgba(169,112,255,.55))',s1);
+const titleEl=mk('','FullTube','position:absolute;left:0;right:0;top:350px;text-align:center;font-size:108px;font-weight:800;letter-spacing:-2px',s1);
+const tagEl=mk('',t({pt:'Assista só ao <b style="color:#c9a4ff">vídeo.</b>',en:'Watch just the <b style="color:#c9a4ff">video.</b>'}),'position:absolute;left:0;right:0;top:490px;text-align:center;font-size:50px;font-weight:600;color:#d3cae9',s1);
+K(s1,'opacity',[[0,1],[2.7,1],[3.3,0]]);
+K(logoEl,'opacity',[[0,0],[.15,0],[.6,1]]);
+K(logoEl,'transform',[[0,'scale(.55)'],[.15,'scale(.55)',POP],[1.0,'scale(1)']]);
+K(titleEl,'opacity',[[0,0],[.7,0],[1.2,1]]);
+K(titleEl,'transform',[[0,'translateY(24px)'],[.7,'translateY(24px)',OUT],[1.3,'translateY(0px)']]);
+K(tagEl,'opacity',[[0,0],[1.3,0],[1.9,1]]);
+K(tagEl,'transform',[[0,'translateY(20px)'],[1.3,'translateY(20px)',OUT],[1.95,'translateY(0px)']]);
+
+// ================= SCENE 2: page + click =================
+const s2=mk('L','');
+const pageBox2=mk('',browser(1000,682,buildPage(),extIcon('ext2')),'position:absolute;left:0;top:0;transform-origin:0 0;transform:translate(240px,30px) scale(.8)',s2);
+pageBox2.querySelector('.pw').appendChild(makePlayer(14,222,0));
+const dim=mk('','','position:absolute;left:0;top:0;width:1280px;height:720px;background:rgba(10,7,20,.74)',s2);
+fade(s2,2.8,3.5,9.7,10.3);
+K(dim,'opacity',[[0,0],[6.0,0],[6.7,1]]);
+
+// ================= SCENE 3: editor =================
+const s3=mk('L','');
+const ed=document.createElement('div');ed.className='win';
+ed.style.cssText='position:absolute;left:50px;top:66px;width:700px;height:540px;background:#1b1829;transform-origin:0 0';
+let side='';for(let i=0;i<9;i++)side+=`<div style="height:10px;border-radius:5px;background:${i%3==0?'#a970ff':'#4a4562'};width:${60+((i*37)%70)}px;margin:0 0 18px ${(i%3==1||i%3==2)?18:0}px"></div>`;
+const rows=[[0,[70,110,40]],[0,[]],[0,[90,60,150]],[1,[60,200]],[1,[110,80,120]],[2,[140,90]],[2,[70,170,50]],[2,[100,60]],[1,[40]],[0,[]],[0,[120,70,90]],[1,[80,150,60]],[1,[170,70]],[2,[90,130,70]],[2,[60,110]],[1,[50]],[0,[40]]];
+const tc=['#a970ff','#ff6b8a','#7dd3a8','#8b86a3','#ffd77a','#6cc4ff'];
+let codeRows=[];
+let code='';rows.forEach((r,i)=>{const w=r[1].reduce((a,b)=>a+b+12,0)+r[0]*28;
+  code+=`<div style="display:flex;align-items:center;height:22px;margin:0 0 9px;"><span style="width:34px;color:#5d5873;font-size:15px;font-family:Consolas,monospace;flex:none">${i+1}</span><div class="cl" data-w="${w}" style="display:flex;gap:12px;padding-left:${r[0]*28}px;overflow:hidden;width:0">${r[1].map((x,j)=>`<i style="display:block;height:11px;border-radius:5px;flex:none;width:${x}px;background:${tc[(i*2+j)%tc.length]}"></i>`).join('')}</div></div>`;});
+ed.innerHTML=`<div class="tabs" style="background:#2a2638"><div class="dots"><i></i><i></i><i></i></div><div class="tab"><i></i><s></s></div><div class="tab" style="background:#241f36;opacity:.8"><i></i><s style="width:70px"></s></div></div>
+<div style="display:flex;height:502px"><div style="width:170px;background:#171424;padding:26px 18px">${side}</div><div style="flex:1;padding:26px 24px">${code}</div></div>`;
+s3.appendChild(ed);
+fade(s3,9.8,10.5,14.7,15.3);
+ed.querySelectorAll('.cl').forEach((c,i)=>{const w=+c.dataset.w;K(c,'width',[[0,'0px'],[10.5+i*.22,'0px'],[10.5+i*.22+.45,w+'px']]);});
+
+// ================= persistent clean windows A and B =================
+const winA=popWin();const vA=vids[vids.length-1];const winB=popWin();const vB=vids[vids.length-1];stage.appendChild(winA);stage.appendChild(winB);
+const chip960=mk('', '<span class="chip" style="background:#ff0033;font-size:24px;padding:8px 22px">960×600</span>','position:absolute;left:0;width:1280px;text-align:center;top:560px;z-index:30');
+K(chip960,'opacity',[[0,0],[7.2,0],[7.7,1],[9.5,1],[9.9,0]]);
+K(chip960,'transform',[[0,'translateY(10px)'],[7.2,'translateY(10px)',OUT],[7.7,'translateY(0px)']]);
+
+// ================= SCENE 4: theater =================
+const s4=mk('L','');
+const pageBox4=mk('',browser(1000,682,buildPage(),extIcon('ext4')),'position:absolute;left:0;top:0;transform-origin:0 0;transform:translate(40px,30px) scale(.8)',s4);
+const pw4=pageBox4.querySelector('.pw');pw4.appendChild(makePlayer(14,266,0));
+const theaterChip=mk('', t({pt:'Modo teatro',en:'Theater mode'}),'position:absolute;right:26px;top:22px;padding:9px 22px;border-radius:999px;background:#14111f;font-weight:700;font-size:21px;z-index:5',pw4);
+fade(s4,14.8,15.4,20.9,21.5);
+K(pw4,'left',[[0,'20px'],[16.4,'20px',EZ],[17.2,'0px'],[18.8,'0px',EZ],[19.6,'20px']]);
+K(pw4,'top',[[0,'76px'],[16.4,'76px',EZ],[17.2,'0px'],[18.8,'0px',EZ],[19.6,'76px']]);
+K(pw4,'width',[[0,'620px'],[16.4,'620px',EZ],[17.2,'1000px'],[18.8,'1000px',EZ],[19.6,'620px']]);
+K(pw4,'height',[[0,'349px'],[16.4,'349px',EZ],[17.2,'600px'],[18.8,'600px',EZ],[19.6,'349px']]);
+K(pw4,'borderRadius',[[0,'10px'],[16.4,'10px',EZ],[17.2,'0px'],[18.8,'0px',EZ],[19.6,'10px']]);
+K(pw4.querySelector('.player'),'fontSize',[[0,'14px'],[16.4,'14px',EZ],[17.2,'20px'],[18.8,'20px',EZ],[19.6,'14px']]);
+K(theaterChip,'opacity',[[0,0],[17.0,0],[17.5,1],[18.7,1],[19.1,0]]);
+// groups fade away / return
+const grp=(sel,dx,dy)=>{const g=pageBox4.querySelector(sel);
+  K(g,'opacity',[[0,1],[16.1,1],[16.7,0],[18.9,0],[19.7,1]]);
+  K(g,'transform',[[0,'translate(0px,0px)'],[16.1,'translate(0px,0px)',EZ],[16.8,`translate(${dx}px,${dy}px)`],[18.9,`translate(${dx}px,${dy}px)`,EZ],[19.7,'translate(0px,0px)']]);};
+grp('.hd',0,-24);grp('.grp-rec',50,0);grp('.grp-low',0,40);
+// keycaps (right column)
+const keyCol=mk('','','position:absolute;left:880px;top:110px;width:360px;height:440px',s4);
+const kA=mk('',`<div style="display:flex;align-items:center;justify-content:center;gap:20px"><span class="key" id="kAlt">Alt</span><span style="font-size:36px;font-weight:800;color:#a970ff">+</span><span class="key" id="kT">T</span></div><div class="klab">${t({pt:'modo teatro',en:'theater mode'})}</div>`,'position:absolute;left:0;top:0;width:360px',keyCol);
+const kE=mk('',`<div style="display:flex;justify-content:center"><span class="key" id="kEsc">Esc</span></div><div class="klab">${t({pt:'voltar',en:'go back'})}</div>`,'position:absolute;left:0;top:260px;width:360px',keyCol);
+K(keyCol,'opacity',[[0,0],[15.3,0],[15.8,1]]);
+K(keyCol,'transform',[[0,'translateX(30px)'],[15.3,'translateX(30px)',OUT],[15.9,'translateX(0px)']]);
+K(kA,'opacity',[[0,1],[17.9,1],[18.4,.3],[19.7,.3],[20.2,1]]);
+K(kE,'opacity',[[0,.3],[18.0,.3],[18.4,1],[19.8,1],[20.2,.3]]);
+const REST='0 6px 0 #8d84b0,0 16px 26px rgba(0,0,0,.45),0 0 0 0 rgba(169,112,255,0)';
+const DOWN='0 1px 0 #8d84b0,0 6px 12px rgba(0,0,0,.45),0 0 0 7px rgba(169,112,255,.95)';
+const press=(el,a)=>{K(el,'transform',[[0,'translateY(0px)'],[a,'translateY(0px)',OUT],[a+.12,'translateY(5px)'],[a+.75,'translateY(5px)',OUT],[a+.95,'translateY(0px)']]);
+  K(el,'boxShadow',[[0,REST],[a,REST,OUT],[a+.12,DOWN],[a+.75,DOWN,OUT],[a+.95,REST]]);};
+press($('#kAlt'),15.9);press($('#kT'),16.1);press($('#kEsc'),18.5);
+
+// ================= SCENE 5: end card =================
+const s5=mk('L','');
+const l5=mk('',logo(130),'position:absolute;left:575px;top:90px;filter:drop-shadow(0 0 36px rgba(169,112,255,.55))',s5);
+const n5=mk('','FullTube','position:absolute;left:0;right:0;top:238px;text-align:center;font-size:84px;font-weight:800;letter-spacing:-1.5px',s5);
+const m5=mk('',t({pt:'Sem baixar vídeos.<br>Sem rastreio.<br><b style="color:#c9a4ff">Código aberto.</b>',en:'No downloads.<br>No tracking.<br><b style="color:#c9a4ff">Open source.</b>'}),'position:absolute;left:0;right:0;top:366px;text-align:center;font-size:46px;line-height:1.28;font-weight:700;color:#fff',s5);
+const c5=mk('','<span class="chip" style="background:#a970ff;color:#14111f;font-size:30px;padding:10px 32px">Chrome · Edge</span>','position:absolute;left:0;right:0;top:612px;text-align:center',s5);
+K(s5,'opacity',[[0,0],[20.9,0],[21.5,1]]);
+[[l5,21.2],[n5,21.5],[m5,21.8],[c5,22.4]].forEach(([e,a])=>{K(e,'opacity',[[0,0],[a,0],[a+.5,1]]);K(e,'transform',[[0,'translateY(18px)'],[a,'translateY(18px)',OUT],[a+.55,'translateY(0px)']]);});
+
+// ================= captions =================
+const capt=(html,a,b,c,d)=>{const w=mk('dcap',`<span>${html}</span>`);K(w,'opacity',[[0,0],[a,0],[b,1],[c,1],[d,0]]);K(w,'transform',[[0,'translateY(14px)'],[a,'translateY(14px)',OUT],[b,'translateY(0px)'],[c,'translateY(0px)',EZ],[d,'translateY(8px)']]);};
+capt(t({pt:'Um clique: o player numa janela limpa.',en:'One click: the player in a clean window.'}),4.2,4.8,9.7,10.1);
+capt(t({pt:'Várias janelas, ao lado do seu trabalho.',en:'Multiple windows, next to your work.'}),10.6,11.2,14.6,15.0);
+capt(t({pt:'No YouTube: <b>Alt+T</b> para o modo teatro. <b>Esc</b> para voltar.',en:'On YouTube: <b>Alt+T</b> for theater mode. <b>Esc</b> to go back.'}),15.5,16.0,20.8,21.2);
+
+// ================= window A / B motion (need icon position) =================
+const ib=$('#ext2').getBoundingClientRect();const ix=ib.left+ib.width/2,iy=ib.top+ib.height/2;
+const T=(x,y,s)=>`translate(${x}px,${y}px) scale(${s})`;
+K(winA,'transform',[[0,T(ix-12,iy+14,.03)],[6.0,T(ix-12,iy+14,.03),POP],[6.8,T(256,70,.8)],[10.0,T(256,70,.8),EZ],[10.95,T(800,70,.42)],[14.7,T(800,70,.42),EZ],[15.3,T(800,70,.4)]]);
+K(winA,'opacity',[[0,0],[6.0,0],[6.3,1],[14.7,1],[15.3,0]]);
+K(winB,'transform',[[0,T(1100,420,.2)],[11.6,T(1100,420,.2),POP],[12.4,T(800,350,.42)],[14.7,T(800,350,.42),EZ],[15.3,T(800,350,.4)]]);
+K(winB,'opacity',[[0,0],[11.6,0],[11.9,1],[14.7,1],[15.3,0]]);
+// B's player starts at 0:00 when it appears
+vB.start=11.8;vB.base=0;vA.start=6.3;vA.base=0;
+
+// ================= cursor + click =================
+const cur=mk('',`<svg width="40" height="40" viewBox="0 0 24 24" style="filter:drop-shadow(0 4px 6px rgba(0,0,0,.6));display:block"><path d="M5 2l14 10-6 1 3.5 7-3 1.5L10 14l-5 4z" fill="#fff" stroke="#14111f" stroke-width="1.4" stroke-linejoin="round"/></svg>`,'position:absolute;left:0;top:0;z-index:60;transform-origin:8px 3px');
+const ring=mk('','','position:absolute;width:56px;height:56px;border-radius:50%;border:4px solid #ff0033;z-index:59;left:'+(ix-28)+'px;top:'+(iy-28)+'px');
+const tx=ix-8,ty=iy-3;
+const C=(x,y,s)=>`translate(${x}px,${y}px) scale(${s})`;
+K(cur,'transform',[[0,C(tx+260,ty+330,1)],[4.0,C(tx+260,ty+330,1),EZ],[5.55,C(tx,ty,1)],[5.68,C(tx,ty,.8)],[5.84,C(tx,ty,1),EZ],[7.3,C(tx+30,ty+90,1)]]);
+K(cur,'opacity',[[0,0],[4.0,0],[4.4,1],[6.9,1],[7.3,0]]);
+K(ring,'opacity',[[0,0],[5.1,0],[5.4,1],[5.7,1],[6.35,0]]);
+K(ring,'transform',[[0,'scale(.7)'],[5.1,'scale(.7)',OUT],[5.4,'scale(1)'],[5.7,'scale(1)',EZ],[6.35,'scale(2.1)']]);
+
+// ================= driver =================
+const params=new URLSearchParams(location.search);
+window.TOTAL_MS=TOTAL*1000;
+window.seek=ms=>{document.getAnimations().forEach(a=>{a.currentTime=ms});render(ms);};
+if(params.get('capture')){
+  document.getAnimations().forEach(a=>a.pause());
+  window.seek(0);
+}else{
+  const t0=performance.now();
+  const tick=()=>{const ms=Math.min(TOTAL*1000,performance.now()-t0);render(ms);if(ms<TOTAL*1000)requestAnimationFrame(tick);};
+  requestAnimationFrame(tick);
+}
+render(0);
+</script></body></html>
