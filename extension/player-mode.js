@@ -109,9 +109,22 @@
       return true;
     }
     if (message?.type === 'pause-source') {
-      const selected = videos()[Number.isInteger(message.index) ? message.index : activeIndex];
-      if (selected) selected.pause();
-      sendResponse({ ok: Boolean(selected) });
+      const list = videos();
+      const selected = list[Number.isInteger(message.index) ? message.index : activeIndex];
+      let ok = false;
+      if (selected) {
+        selected.pause();
+        ok = true;
+      } else {
+        // Fallback: pause every video that is currently playing on the page.
+        document.querySelectorAll('video').forEach(video => {
+          if (!video.paused) {
+            video.pause();
+            ok = true;
+          }
+        });
+      }
+      sendResponse({ ok });
       return true;
     }
     if (message?.type === 'toggle-theater') {
@@ -187,18 +200,19 @@
     if (Number.isFinite(time) && time >= 0) {
       try { selected.video.currentTime = time; } catch (_) { /* media may not be seekable */ }
     }
+    // Signal readiness before waiting on play(): if play() never settles, the
+    // source tab must still be paused so audio is not duplicated.
+    chrome.runtime.sendMessage({ type: 'popup-ready', index: activeIndex }).catch(() => {});
+    if (site === 'twitch' || site === 'generic') selected.video.controls = true;
+    selected.video.focus?.({ preventScroll: true });
+    installShortcuts(selected.video);
     if (params.get('multiTubeAutoplay') === '1') {
       try {
         await selected.video.play();
       } catch (_) {
-        if (site === 'twitch' || site === 'generic') selected.video.controls = true;
         notify(chrome.i18n.getMessage('popupAutoplayBlocked'));
       }
     }
-    if (site === 'twitch' || site === 'generic') selected.video.controls = true;
-    selected.video.focus?.({ preventScroll: true });
-    installShortcuts(selected.video);
-    chrome.runtime.sendMessage({ type: 'popup-ready', index: activeIndex }).catch(() => {});
   }
 
   function installYouTubeTheaterMode() {
@@ -275,6 +289,12 @@
         });
       }
     };
+    // YouTube navigates in-page (SPA) and does not undo theater mode on its own.
+    const exitWhenLeavingWatch = () => {
+      if (active && location.pathname !== '/watch') setActive(false);
+    };
+    document.addEventListener('yt-navigate-finish', exitWhenLeavingWatch);
+    window.addEventListener('popstate', exitWhenLeavingWatch);
     // Both the manifest command and the in-page Alt+T handler can fire for the
     // same key press; a second toggle within 300 ms is ignored.
     let lastToggle = 0;

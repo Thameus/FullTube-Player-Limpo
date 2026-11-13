@@ -10,7 +10,7 @@ Limites usados: descrição curta até 132 caracteres; termos de busca do Edge, 
 |---|---|
 | Versão | 2.1.0 |
 | Idioma padrão | Português (Brasil); adicionar Inglês como segundo idioma |
-| Site / página inicial | https://fulltube.thameus.com.br |
+| Site / página inicial | https://fulltube.thameus.com.br (confirme que o domínio abre antes de enviar; enquanto o DNS não estiver ativo, use https://fulltube-site.vercel.app) |
 | Suporte | https://github.com/Thameus/FullTube-Player-Limpo/issues |
 | Política de privacidade | https://thameus.github.io/FullTube-Player-Limpo/privacy.html (inglês: https://thameus.github.io/FullTube-Player-Limpo/privacy.en.html) |
 | Código-fonte | https://github.com/Thameus/FullTube-Player-Limpo |
@@ -51,10 +51,10 @@ As imagens e o vídeo são ilustrações geradas para o projeto, sem capturas ne
 FullTube — Janela Limpa e Modo Teatro
 ```
 
-## Descrição curta (127 caracteres)
+## Descrição curta (126 caracteres)
 
 ```
-Abra o vídeo em uma janela limpa e flutuante ou use o modo teatro do YouTube na mesma aba. Sem downloads e sem coleta de dados.
+Assista só ao vídeo: abra o player numa janela limpa ou use o modo teatro do YouTube (Alt+T). Sem baixar vídeos, sem rastreio.
 ```
 
 ## Descrição longa
@@ -62,7 +62,7 @@ Abra o vídeo em uma janela limpa e flutuante ou use o modo teatro do YouTube na
 ```
 Assista a vídeos sem o resto da página: um clique abre o player em uma janela limpa, e no YouTube o modo teatro ocupa a aba inteira.
 
-O FullTube é uma janela flutuante para vídeos. Clique no ícone da extensão e o player HTML5 da página abre em uma janela de 960×600, sem menus, comentários ou recomendações. Você continua usando o player e os controles oficiais do site. Funciona como um pop-out ou uma alternativa ao picture-in-picture quando você quer uma janela de verdade, que dá para redimensionar, mover e deixar ao lado do que está fazendo.
+Clique no ícone da extensão e o player HTML5 da página abre em uma janela de 960×600, sem menus, comentários ou recomendações. Você continua usando o player e os controles oficiais do site, e pode redimensionar, mover e deixar a janela ao lado do que estiver fazendo.
 
 PRINCIPAIS RECURSOS
 • Janela limpa com um clique: o player da página, sem distração.
@@ -83,7 +83,7 @@ ATALHOS
 PRIVACIDADE
 O FullTube não coleta nem envia dados. Não baixa vídeos, não extrai streams, não lê cookies e não bloqueia anúncios. A posição e o tamanho da janela ficam salvos apenas no seu navegador.
 
-Sobre as permissões: a extensão pede acesso a sites http e https porque, ao clicar no ícone, precisa preparar o player na janela nova em qualquer site em que você esteja, e isso não dá para saber antes. O acesso é usado só para localizar o vídeo e aplicar tempo, volume e layout. O código é aberto: https://github.com/Thameus/FullTube-Player-Limpo
+Sobre as permissões: a extensão pede acesso a sites http e https porque, ao clicar no ícone, precisa preparar o player na janela nova em qualquer site em que você esteja, e isso não é possível saber antes. O acesso é usado somente para localizar o vídeo e aplicar tempo, volume e layout; nenhum outro conteúdo das páginas é lido, armazenado ou enviado. O código é aberto: https://github.com/Thameus/FullTube-Player-Limpo
 
 O FullTube é um projeto independente e não é afiliado, associado ou endossado pelo YouTube, pelo Google, pela Twitch, pelo Vimeo ou pela Microsoft.
 ```
@@ -91,13 +91,13 @@ O FullTube é um projeto independente e não é afiliado, associado ou endossado
 ## Termos de busca (Edge, máx. 7)
 
 ```
-janela flutuante
-pop-out de vídeo
-picture-in-picture
+janela limpa de vídeo
+player em janela
 modo teatro
 modo cinema
-youtube sem distração
+assistir sem distração
 multitarefa
+vídeo em outra janela
 ```
 
 ---
@@ -110,10 +110,10 @@ multitarefa
 FullTube — Clean Video Window & Theater Mode
 ```
 
-## Short description (132 characters)
+## Short description (120 characters)
 
 ```
-Pop out any web video into a clean floating window, or use theater mode on YouTube in the same tab. No downloads, no data collected.
+Watch just the video: pop the player into a clean window or use YouTube theater mode (Alt+T). No downloads, no tracking.
 ```
 
 ## Long description
@@ -121,7 +121,7 @@ Pop out any web video into a clean floating window, or use theater mode on YouTu
 ```
 Watch videos without the rest of the page: one click pops the player into a clean window, and on YouTube theater mode fills the whole tab.
 
-FullTube is a floating window for video. Click the extension icon and the page's HTML5 player opens in a 960×600 window with no menus, comments or recommendations. You keep using the site's official player and controls. It works as a pop-out player, or an alternative to picture-in-picture when you want a real window you can resize, move and keep next to whatever you are doing.
+Click the extension icon and the page's HTML5 player opens in a 960×600 window with no menus, comments or recommendations. You keep using the site's official player and controls, and you can resize, move and keep the window next to whatever you are doing.
 
 KEY FEATURES
 • A clean window in one click: the page's player, distraction-free.
@@ -142,7 +142,7 @@ SHORTCUTS
 PRIVACY
 FullTube does not collect or send any data. It does not download videos, extract streams, read cookies or block ads. Window position and size are saved only in your browser.
 
-About permissions: the extension asks for access to http and https sites because, when you click the icon, it has to prepare the player in the new window on whatever site you are on, and that cannot be known in advance. The access is used only to find the video and apply time, volume and layout. The code is open source: https://github.com/Thameus/FullTube-Player-Limpo
+About permissions: the extension asks for access to http and https sites because, when you click the icon, it has to prepare the player in the new window on whatever site you are on, and that cannot be known in advance. The access is used only to find the video and apply time, volume and layout; no other page content is read, stored or sent. The code is open source: https://github.com/Thameus/FullTube-Player-Limpo
 
 FullTube is an independent project and is not affiliated with, associated with or endorsed by YouTube, Google, Twitch, Vimeo or Microsoft.
 ```
@@ -150,13 +150,13 @@ FullTube is an independent project and is not affiliated with, associated with o
 ## Search terms (Edge, max 7)
 
 ```
-floating video window
-pop-out player
-picture-in-picture
+clean video window
+video in separate window
 theater mode
 cinema mode
 distraction-free video
 video multitasking
+pop-out video player
 ```
 
 ---
@@ -189,8 +189,8 @@ Mantenha em inglês nos campos que a loja pedir em inglês; abaixo, o texto em a
 - en: Create the 960×600 clean window and restore its position and size.
 
 **Permissões de host / Host permissions (`http://*/*`, `https://*/*`)**
-- pt: O usuário pode clicar no ícone em qualquer site com vídeo HTML5, e o site não é conhecido de antemão. A janela nova carrega a mesma página e precisa que o script seja injetado nela para encontrar o player e aplicar o layout limpo. O acesso é usado somente para isso; nenhum conteúdo de página é lido para outra finalidade, armazenado ou enviado. O script de modo teatro e de adaptação roda automaticamente apenas em youtube.com, twitch.tv e vimeo.com.
-- en: Users can click the icon on any site with an HTML5 video, and the site is not known in advance. The new window loads the same page and needs the script injected to find the player and apply the clean layout. The access is used only for this; no page content is read for any other purpose, stored or sent. The theater-mode and adapter script runs automatically only on youtube.com, twitch.tv and vimeo.com.
+- pt: O usuário pode clicar no ícone em qualquer site com vídeo HTML5, e o site não é conhecido de antemão. A janela nova carrega a mesma página e precisa que o script seja injetado nela para encontrar o player e aplicar o layout limpo. O acesso é usado somente para isso; nenhum conteúdo de página é lido para outra finalidade, armazenado ou enviado. O script de modo teatro e de adaptação roda automaticamente apenas em www.youtube.com, www.twitch.tv e vimeo.com.
+- en: Users can click the icon on any site with an HTML5 video, and the site is not known in advance. The new window loads the same page and needs the script injected to find the player and apply the clean layout. The access is used only for this; no page content is read for any other purpose, stored or sent. The theater-mode and adapter script runs automatically only on www.youtube.com, www.twitch.tv and vimeo.com.
 
 **Código remoto / Remote code**
 - pt: Não. Todo o código está no pacote da extensão.

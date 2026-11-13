@@ -18,8 +18,7 @@ volume, mudo e reprodução. Esse acesso acontece no seu navegador e serve apena
 para localizar o vídeo e aplicar o layout e o estado de reprodução.
 
 A extensão pede permissão de acesso a sites `http` e `https` porque não é
-possível saber de antemão em qual site você vai clicar no ícone. Essa permissão
-não é usada para ler, coletar ou enviar o conteúdo das páginas.
+possível saber de antemão em qual site você vai clicar no ícone. O acesso é usado somente para localizar o vídeo e aplicar tempo, volume e layout; nenhum outro conteúdo das páginas é lido, armazenado ou enviado.
 
 A extensão também armazena localmente as dimensões e a posição da janela, por
 site. Dados temporários usados para relacionar a aba de origem à janela ficam em
@@ -37,7 +36,7 @@ navegador; essa escolha é feita localmente e nenhuma informação é enviada.
 - Não lemos, copiamos ou transmitimos cookies.
 - Não acessamos senhas, tokens ou credenciais.
 - Não extraímos URLs de mídia nem baixamos streams.
-- Não usamos captura de aba, `captureStream` ou `tabCapture`.
+- Não usamos captura de aba nem captura de stream (tabCapture, captureStream).
 - Não bloqueamos anúncios.
 - Não enviamos dados para servidores próprios ou terceiros.
 - Não usamos analytics, publicidade ou rastreamento.

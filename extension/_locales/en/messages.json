@@ -9,7 +9,7 @@
     "message": "Watch just the video: pop the player into a clean window or use YouTube theater mode (Alt+T). No downloads, no tracking."
   },
   "actionTitle": {
-    "message": "Open clean player · YouTube: Alt+T theater mode"
+    "message": "Open in a clean window · YouTube: Alt+T theater mode"
   },
   "commandTheaterDescription": {
     "message": "Toggle YouTube theater mode"
@@ -84,13 +84,19 @@
     "message": "Why does it ask for access to all sites?"
   },
   "welcomeAccessText": {
-    "message": "To prepare the clean window on any site you choose. Nothing is collected or sent: FullTube uses no cookies, does not extract streams and does not download videos."
+    "message": "To prepare the clean window on whatever site you click the icon on. Nothing is collected or sent: FullTube uses no cookies, extracts no streams and downloads no videos."
   },
   "welcomeShortcutsTitle": {
     "message": "Change the shortcuts"
   },
   "welcomeShortcutsText": {
-    "message": "Open this page in your browser (copy and paste it into the address bar) to remap Alt+T:"
+    "message": "Paste the address below into your browser's address bar to change the Alt+T shortcut:"
+  },
+  "welcomeCopyAria": {
+    "message": "Copy $ADDRESS$",
+    "placeholders": {
+      "address": { "content": "$1" }
+    }
   },
   "welcomeShortcutsChrome": {
     "message": "Chrome"
@@ -117,6 +123,6 @@
     "message": "Report an issue"
   },
   "welcomeDisclaimer": {
-    "message": "Not affiliated with YouTube or Google"
+    "message": "FullTube is not affiliated with YouTube or Google."
   }
 }

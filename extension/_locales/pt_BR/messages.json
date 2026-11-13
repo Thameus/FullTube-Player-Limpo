@@ -9,7 +9,7 @@
     "message": "Assista só ao vídeo: abra o player numa janela limpa ou use o modo teatro do YouTube (Alt+T). Sem baixar vídeos, sem rastreio."
   },
   "actionTitle": {
-    "message": "Abrir player limpo · YouTube: Alt+T modo teatro"
+    "message": "Abrir em janela limpa · YouTube: Alt+T modo teatro"
   },
   "commandTheaterDescription": {
     "message": "Alternar modo teatro no YouTube"
@@ -84,13 +84,19 @@
     "message": "Por que pede acesso a todos os sites?"
   },
   "welcomeAccessText": {
-    "message": "Para preparar a janela limpa em qualquer site que você escolher. Nada é coletado nem enviado: o FullTube não usa cookies, não extrai streams e não baixa vídeos."
+    "message": "Para preparar a janela limpa em qualquer site em que você clicar no ícone. Nada é coletado nem enviado: o FullTube não usa cookies, não extrai streams e não baixa vídeos."
   },
   "welcomeShortcutsTitle": {
     "message": "Mudar os atalhos"
   },
   "welcomeShortcutsText": {
-    "message": "Abra esta página no navegador (copie e cole na barra de endereços) para remapear o Alt+T:"
+    "message": "Cole o endereço abaixo na barra de endereços do navegador para trocar o atalho Alt+T:"
+  },
+  "welcomeCopyAria": {
+    "message": "Copiar $ADDRESS$",
+    "placeholders": {
+      "address": { "content": "$1" }
+    }
   },
   "welcomeShortcutsChrome": {
     "message": "Chrome"
@@ -117,6 +123,6 @@
     "message": "Relatar um problema"
   },
   "welcomeDisclaimer": {
-    "message": "Não afiliado ao YouTube nem ao Google"
+    "message": "O FullTube não é afiliado ao YouTube nem ao Google."
   }
 }

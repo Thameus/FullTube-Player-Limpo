@@ -84,3 +84,18 @@ assert.match(worker, /commands\.onCommand/);
 assert.match(worker, /reason === 'install'/);
 assert.match(player, /toggle-theater/);
 console.log('extension i18n/welcome tests: ok');
+
+// ---- review fixes: short_name, CSP, popup-ready order, YouTube SPA exit ----
+assert.match(manifest.short_name, /^__MSG_\w+__$/);
+for (const locale of [pt, en]) {
+  assert.ok(locale.extShortName.message.length <= 12, 'short_name must be <= 12 chars');
+}
+assert.doesNotMatch(manifest.content_security_policy.extension_pages, /frame-src/, 'extension pages CSP must not contain frame-src');
+const popupStart = player.indexOf('async function installPopupMode');
+assert.ok(popupStart >= 0, 'installPopupMode must exist');
+const popupSource = player.slice(popupStart);
+const readyIndex = popupSource.indexOf('popup-ready');
+const playIndex = popupSource.indexOf('video.play()');
+assert.ok(readyIndex > 0 && playIndex > 0 && readyIndex < playIndex, 'popup-ready must be sent before video.play()');
+assert.match(player, /yt-navigate-finish/);
+console.log('extension review-fix tests: ok');

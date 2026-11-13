@@ -28,6 +28,17 @@ projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 - O pacote de publicação passa a incluir toda a pasta `extension/`
   (exceto `test-extension.js`).
 
+### Corrigido
+
+- A aba de origem agora é pausada assim que a janela limpa encontra o player,
+  mesmo que a reprodução na janela nova demore a começar (evita áudio duplicado).
+- O modo teatro é desfeito ao sair da página do vídeo no YouTube; antes o topo
+  do site ficava oculto e a página não rolava.
+- Política de segurança da extensão sem a permissão de `frame-src` que não era
+  usada.
+- Página de boas-vindas com melhor contraste e botões de copiar acessíveis a
+  leitores de tela.
+
 ## [2.0.0] - 2026-10-31
 
 ### Adicionado

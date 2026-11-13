@@ -16,7 +16,7 @@ function popupUrl(url, player) {
 
 function openMessageWindow(text) {
   const url = `${chrome.runtime.getURL('error.html')}?message=${encodeURIComponent(text)}`;
-  chrome.windows.create({ url, type: 'popup', width: 420, height: 180, focused: true });
+  chrome.windows.create({ url, type: 'popup', width: 420, height: 180, focused: true }).catch(() => {});
 }
 
 async function injectDetector(tabId) {

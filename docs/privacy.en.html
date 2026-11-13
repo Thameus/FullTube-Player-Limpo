@@ -23,7 +23,7 @@
   <p>FullTube — Clean Video Window &amp; Theater Mode is a Chrome and Edge extension that detects a visible HTML5 player on the page and opens the same page in a clean window. On YouTube, it also offers a theater mode in the same tab.</p>
   <h2>Data accessed</h2>
   <p>The extension can access the active page, the HTML5 video element and the technical playback state, such as current time, volume, mute state and whether it is playing. This access happens in your browser and is used only to find the video and apply the layout and playback state.</p>
-  <p>The extension asks for access to <code>http</code> and <code>https</code> sites because it cannot know in advance which site you will be on when you click the icon. This permission is not used to read, collect or send the content of pages.</p>
+  <p>The extension asks for access to <code>http</code> and <code>https</code> sites because it cannot know in advance which site you will be on when you click the icon. The access is used only to find the video and apply time, volume and layout; no other page content is read, stored or sent.</p>
   <p>Window size and position are stored locally, per site. Temporary data used to link the source tab to the window is kept in <code>storage.session</code> and removed when it is no longer needed.</p>
   <h2>Welcome page and language</h2>
   <p>On first install, the extension opens a welcome page once. It is a local page of the extension itself, loads no content from external servers and sends no data. The interface language (Portuguese or English) follows your browser language; this choice is made locally and no information is sent.</p>
@@ -32,7 +32,7 @@
     <li>We do not read, copy or transmit cookies.</li>
     <li>We do not access passwords, tokens or credentials.</li>
     <li>We do not extract media URLs or download streams.</li>
-    <li>We do not use tab capture or stream capture.</li>
+    <li>We do not use tab capture or stream capture (tabCapture, captureStream).</li>
     <li>We do not block ads.</li>
     <li>We do not send data to our own or third-party servers.</li>
     <li>We do not use analytics, advertising or tracking.</li>
